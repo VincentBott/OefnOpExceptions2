@@ -104,7 +104,7 @@ public class Student {
                 throw new IllegalArgumentException("Datum is ongeldig");
             }
 
-            if (LocalDate.now().compareTo(lcl) < 0)
+            if (LocalDate.now().compareTo(lcl) < 0)    //  isAfter() methode kan ook.
                 throw new IllegalArgumentException("Datum mag niet in de toekomst liggen");
 
 
