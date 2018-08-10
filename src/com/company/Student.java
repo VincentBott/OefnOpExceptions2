@@ -1,34 +1,129 @@
 package com.company;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
+
+/*  De versie hieronder is deels van een andere oefening.
+
+public class Student {
+    private String naam;
+    private LocalDate geboorteDatum;
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
+    }
+
+    public LocalDate getGeboorteDatum() {
+        return geboorteDatum;
+    }
+
+    public void setGeboorteDatum(LocalDate geboorteDatum) {
+        this.geboorteDatum = geboorteDatum;
+    }
+    public void setGeboorteDatum(int dag, int maand, int jaar) {
+        this.geboorteDatum = LocalDate.of(jaar, maand, dag);
+    }
+    public int getLeeftijd(){
+        LocalDate vandaag = LocalDate.now();
+        int leeftijd = vandaag.getYear() - geboorteDatum.getYear();
+        LocalDate verjaardag = geboorteDatum.plusYears(leeftijd);
+        if (verjaardag.compareTo(vandaag) > 0){
+            leeftijd--;
+        }
+        return leeftijd;
+    }
+}
+
+*/
+
+
+
+/*    Eigen versie hieronder.   */
+
+/*
 public class Student {
 
 
-    private int leeftijd;
     private String naam;
+    private LocalDate geboortedatum;
 
-/*
-if (naam.length() < 2) throw new IllegalArgumentException("Naam moet minstens 2 karakters lang zijn.");
+    private LocalDate vandaag = LocalDate.now();
 
-if (prijs < 0) throw new IllegalArgumentException("De prijs mag niet negatief zijn.");
- */
 
     public Student(String naam, int dag, int maand, int jaar) {
+
 
         if (naam.length() < 2) throw new IllegalArgumentException("Naam moet minstens 2 karakters lang zijn.");
 
 
-  //      if (prijs < 0) throw new IllegalArgumentException("De prijs mag niet negatief zijn.");
+        if (geboortedatum.of(jaar, maand, dag) == null) throw new IllegalArgumentException("U moet een geldige datum ingeven.");
+
+
+
+        if (geboortedatum.isAfter(vandaag))
+            throw new DateTimeException("De geboortedatum kan niet in de toekomst liggen.");
+
 
         this.naam = naam;
     }
 
     public String getNaam() {
-
+        return this.naam;
     }
 
     public int getLeeftijd() {
 
+
+        return 1;
     }
-}
+*/
+
+// Hieronder de werkende versie van Alexej en Jef, de docent.
+
+
+    public class Student {
+        private String name;
+        private LocalDate lcl;
+        private int leeftijd;
+
+        public Student(String naam, int dag, int maand, int jaar) {
+
+
+            if (naam.length() < 2) throw new IllegalArgumentException("Naam is te kort");
+
+
+            try {
+                this.lcl = LocalDate.of(jaar, maand, dag);
+
+            } catch (DateTimeException ex) {
+                throw new IllegalArgumentException("Datum is ongeldig");
+            }
+
+            if (LocalDate.now().compareTo(lcl) < 0)
+                throw new IllegalArgumentException("Datum mag niet in de toekomst liggen");
+
+
+            this.name = naam;
+        }
+
+        public String getNaam() {
+            return this.name;
+        }
+
+        public int getLeeftijd() {
+            this.leeftijd = LocalDate.now().getYear() - lcl.getYear();
+            if (lcl.getDayOfYear() > LocalDate.now().getDayOfYear()) {
+                this.leeftijd--;
+            }
+            return leeftijd;
+        }
+    }
+
+
+
+

@@ -19,7 +19,8 @@ public class Main {
         try{
             Student s = new Student("Joske", 29, 2, 2018);
             System.out.printf("Dag %s, je bent %d jaar oud.", s.getNaam(), s.getLeeftijd());
-        }catch(IllegalArgumentException ex){
+
+        } catch(IllegalArgumentException ex){
             System.out.println(ex.getMessage());
         }
 
@@ -39,7 +40,8 @@ public class Main {
         try {
             Student s = new Student("Joske", 1, 1, 2000);
             System.out.printf("Dag %s, je bent %d jaar oud.", s.getNaam(), s.getLeeftijd());
-        } catch(IllegalArgumentException ex){
+
+        } catch (IllegalArgumentException ex){
             System.out.println(ex.getMessage());
         }
 
