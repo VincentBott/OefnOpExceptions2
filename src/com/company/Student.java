@@ -87,9 +87,14 @@ public class Student {
 
 
     public class Student {
-        private String name;
-        private LocalDate lcl;
+
+        private String naam;
+        private LocalDate geboortedatum;
+
+        private LocalDate datumVandaag = LocalDate.now();
+
         private int leeftijd;
+
 
         public Student(String naam, int dag, int maand, int jaar) {
 
@@ -98,29 +103,32 @@ public class Student {
 
 
             try {
-                this.lcl = LocalDate.of(jaar, maand, dag);
+                this.geboortedatum = LocalDate.of(jaar, maand, dag);
 
             } catch (DateTimeException ex) {
                 throw new IllegalArgumentException("Datum is ongeldig");
             }
 
-            if (LocalDate.now().compareTo(lcl) < 0)    //  isAfter() methode kan ook.
+            if (geboortedatum.isAfter(datumVandaag))               // Kan ook met compareTo()
                 throw new IllegalArgumentException("Datum mag niet in de toekomst liggen");
 
 
-            this.name = naam;
+            this.naam = naam;
         }
 
         public String getNaam() {
-            return this.name;
+
+            return this.naam;
         }
 
         public int getLeeftijd() {
-            this.leeftijd = LocalDate.now().getYear() - lcl.getYear();
-            if (lcl.getDayOfYear() > LocalDate.now().getDayOfYear()) {
+
+            this.leeftijd = datumVandaag.getYear() - geboortedatum.getYear();
+
+            if (geboortedatum.getDayOfYear() > LocalDate.now().getDayOfYear())
                 this.leeftijd--;
-            }
-            return leeftijd;
+
+            return this.leeftijd;
         }
     }
 
